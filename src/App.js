@@ -96,7 +96,7 @@ class App extends Component {
         </form>
 
         <label htmlFor={this.filterInputId}>
-          Фильтр по имени
+          Find contacts by name and number
           <input
             type="text"
             value={filter}
