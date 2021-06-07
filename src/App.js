@@ -1,16 +1,28 @@
 import React, { Component } from "react";
 import "./App.css";
 import { v4 as uuidv4 } from "uuid";
+import PropTypes from "prop-types";
 
 import ContactForm from "components/ContactForm";
 import Filter from "components/Filter";
 import ContactList from "components/ContactList";
+import Container from "components/Container";
 import contactsTest from "data/contactsTest.json";
 
 class App extends Component {
-  state = {
+  static defaultProps = {
     contacts: contactsTest,
     filter: "",
+  };
+
+  static propTypes = {
+    contacts: PropTypes.array,
+    filter: PropTypes.string,
+  };
+
+  state = {
+    contacts: this.props.contacts,
+    filter: this.props.filter,
   };
 
   formAddContact = ({ name, number }) => {
@@ -55,17 +67,15 @@ class App extends Component {
     const visibleContacts = this.getVisibleContacts();
 
     return (
-      <>
-        <h1 className="title">Phonebook</h1>
+      <Container title="Phonebook">
         <ContactForm onSubmit={this.formAddContact} />
-
         <h2 className="title">Contacts</h2>
         <Filter filter={filter} onChangeFilter={this.changeFilter} />
         <ContactList
           contacts={visibleContacts}
           deleteContact={this.deleteContact}
         />
-      </>
+      </Container>
     );
   }
 }
